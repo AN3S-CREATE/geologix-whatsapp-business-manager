@@ -1,0 +1,92 @@
+{
+  "version": "2",
+  "flowTitle": "Interactive WhatsApp Message Analyzer with AI Agent",
+  "trigger": {
+    "valid": true,
+    "displayName": "Interactive Message Analysis",
+    "type": "MANUAL",
+    "settings": {
+      "inputUiInfo": {},
+      "paramsSchema": {
+        "type": "object",
+        "properties": {
+          "senderName": {
+            "type": "string",
+            "description": "Input for senderName"
+          },
+          "messageDate": {
+            "type": "string",
+            "title": "Message Date",
+            "format": "date-time",
+            "description": "When was this message received?"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Input for phoneNumber"
+          },
+          "messageContent": {
+            "type": "string",
+            "description": "Input for messageContent"
+          },
+          "additionalContext": {
+            "type": "string",
+            "description": "Input for additionalContext"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440030",
+      "valid": false,
+      "displayName": "AI Agent Analysis",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "agent.ask",
+        "input": {
+          "input": "Please analyze this WhatsApp business message and help me categorize it properly:\n\nSender: {{ trigger[\"senderName\"] }}\nPhone: {{ trigger[\"phoneNumber\"] }}\nMessage: {{ trigger[\"messageContent\"] }}\nAdditional Context: {{ trigger[\"additionalContext\"] }}\n\nPlease:\n1. Analyze the message intent and context\n2. Suggest appropriate category (Urgent, Follow-up, Inquiry, Support, Sales, General)\n3. Recommend priority level (High, Medium, Low)\n4. Suggest which project this should go to\n5. Recommend follow-up actions\n6. If you're unsure about anything, ask me specific questions to clarify\n\nBe conversational and ask questions if you need more information to make accurate recommendations.",
+          "agentId": {
+            "type": "flow-template-variable-input-type",
+            "id": "01K42BKYV6BQZRFTE82MHAR3Z2"
+          },
+          "outputType": "plaintext"
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "http_response",
+      "body": {
+        "type": "json",
+        "data": {
+          "type": "basic",
+          "payload": [
+            {
+              "agentResponse": "{{ 550e8400-e29b-41d4-a716-446655440030[\"result\"] }}"
+            },
+            {
+              "messageDetails": "{{ trigger[\"senderName\"] }} ({{ trigger[\"phoneNumber\"] }}): {{ trigger[\"messageContent\"] }}"
+            },
+            {
+              "timestamp": "{{ trigger[\"messageDate\"] }}"
+            }
+          ]
+        }
+      },
+      "key": "trigger"
+    }
+  ],
+  "variables": {
+    "01K42BKYV6BQZRFTE82MHAR3Z2": {
+      "id": "01K42BKYV6BQZRFTE82MHAR3Z2",
+      "rank": "V",
+      "type": "string",
+      "format": "taskade-space-agent-id"
+    }
+  }
+}

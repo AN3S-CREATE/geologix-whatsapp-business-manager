@@ -1,0 +1,97 @@
+{
+  "version": "2",
+  "flowTitle": "WhatsApp Message Analyzer & Task Generator",
+  "trigger": {
+    "valid": true,
+    "displayName": "Analyze WhatsApp Message",
+    "type": "MANUAL",
+    "settings": {
+      "inputUiInfo": {},
+      "paramsSchema": {
+        "type": "object",
+        "properties": {
+          "senderName": {
+            "type": "string",
+            "description": "Input for senderName"
+          },
+          "messageDate": {
+            "type": "string",
+            "title": "Message Date",
+            "format": "date-time",
+            "description": "When was this message received?"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Input for phoneNumber"
+          },
+          "messageContent": {
+            "type": "string",
+            "description": "Input for messageContent"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440010",
+      "valid": true,
+      "displayName": "Categorize Message with AI",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.categorize",
+        "input": {
+          "input": "{{ trigger[\"messageContent\"] }}",
+          "output": "{\"category\": [\"Urgent\", \"Follow-up\", \"Inquiry\", \"Support\", \"Sales\", \"General\"], \"priority\": [\"High\", \"Medium\", \"Low\"], \"businessValue\": \"string\", \"suggestedActions\": \"array\"}"
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440012",
+      "valid": true,
+      "displayName": "Generate Professional Task Breakdown",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.generate",
+        "input": {
+          "input": "Message from {{ trigger[\"senderName\"] }}: {{ trigger[\"messageContent\"] }}",
+          "prompt": "You are a professional business consultant. Analyze this WhatsApp business message and create a detailed task breakdown that adds maximum value to the business relationship. For each suggested task, include: 1) Clear action item, 2) Business rationale, 3) Estimated time, 4) Priority level, 5) Value-add opportunities. Format as JSON array with tasks."
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "http_response",
+      "body": {
+        "type": "json",
+        "data": {
+          "type": "basic",
+          "payload": [
+            {
+              "senderName": "{{ trigger[\"senderName\"] }}"
+            },
+            {
+              "phoneNumber": "{{ trigger[\"phoneNumber\"] }}"
+            },
+            {
+              "messageContent": "{{ trigger[\"messageContent\"] }}"
+            },
+            {
+              "messageDate": "{{ trigger[\"messageDate\"] }}"
+            },
+            {
+              "suggestedTasks": "{{ 550e8400-e29b-41d4-a716-446655440012[\"result\"] }}"
+            }
+          ]
+        }
+      },
+      "key": "trigger"
+    }
+  ]
+}

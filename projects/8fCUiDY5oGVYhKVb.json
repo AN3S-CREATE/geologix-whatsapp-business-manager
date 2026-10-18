@@ -1,0 +1,252 @@
+{
+  "root": {
+    "type": "root",
+    "children": [
+      {
+        "type": "text",
+        "id": "550e8400-e29b-41d4-a716-446655440001",
+        "text": {
+          "ops": [
+            {
+              "insert": "Generated Tasks from WhatsApp"
+            },
+            {
+              "insert": "\n",
+              "attributes": {
+                "paragraph": true
+              }
+            }
+          ]
+        },
+        "format": null,
+        "collapsed": false,
+        "completed": false,
+        "children": []
+      }
+    ],
+    "views": {
+      "table": {
+        "id": "table",
+        "type": "table",
+        "rank": "V",
+        "columns": {
+          "/text": {
+            "id": "/text",
+            "fieldPath": "/text",
+            "rank": "7",
+            "width": 480
+          },
+          "/attributes/agent": {
+            "id": "/attributes/agent",
+            "fieldPath": "/attributes/agent",
+            "rank": "A",
+            "hidden": true
+          },
+          "/attributes/date": {
+            "id": "/attributes/date",
+            "fieldPath": "/attributes/date",
+            "rank": "F"
+          },
+          "/attributes/assignee": {
+            "id": "/attributes/assignee",
+            "fieldPath": "/attributes/assignee",
+            "rank": "N"
+          },
+          "/attributes/comment": {
+            "id": "/attributes/comment",
+            "fieldPath": "/attributes/comment",
+            "rank": "V",
+            "hidden": true
+          },
+          "/attributes/reaction": {
+            "id": "/attributes/reaction",
+            "fieldPath": "/attributes/reaction",
+            "rank": "c",
+            "hidden": true
+          },
+          "/attributes/timer": {
+            "id": "/attributes/timer",
+            "fieldPath": "/attributes/timer",
+            "rank": "k",
+            "hidden": true
+          },
+          "/attributes/media": {
+            "id": "/attributes/media",
+            "fieldPath": "/attributes/media",
+            "rank": "s",
+            "hidden": true
+          },
+          "/attributes/created/at": {
+            "id": "/attributes/created/at",
+            "fieldPath": "/attributes/created/at",
+            "rank": "t",
+            "hidden": true
+          },
+          "/attributes/created/by": {
+            "id": "/attributes/created/by",
+            "fieldPath": "/attributes/created/by",
+            "rank": "u",
+            "hidden": true
+          },
+          "/attributes/updated/at": {
+            "id": "/attributes/updated/at",
+            "fieldPath": "/attributes/updated/at",
+            "rank": "vF",
+            "hidden": true
+          },
+          "/attributes/updated/by": {
+            "id": "/attributes/updated/by",
+            "fieldPath": "/attributes/updated/by",
+            "rank": "wF",
+            "hidden": true
+          },
+          "/attributes/completed/at": {
+            "id": "/attributes/completed/at",
+            "fieldPath": "/attributes/completed/at",
+            "rank": "x",
+            "hidden": true
+          },
+          "/attributes/completed/by": {
+            "id": "/attributes/completed/by",
+            "fieldPath": "/attributes/completed/by",
+            "rank": "y",
+            "hidden": true
+          },
+          "/attributes/@tsk01": {
+            "id": "/attributes/@tsk01",
+            "fieldPath": "/attributes/@tsk01",
+            "rank": "z",
+            "hidden": false
+          },
+          "/attributes/@tsk02": {
+            "id": "/attributes/@tsk02",
+            "fieldPath": "/attributes/@tsk02",
+            "rank": "zV",
+            "hidden": false
+          },
+          "/attributes/@tsk03": {
+            "id": "/attributes/@tsk03",
+            "fieldPath": "/attributes/@tsk03",
+            "rank": "zk",
+            "hidden": false
+          },
+          "/attributes/@tsk04": {
+            "id": "/attributes/@tsk04",
+            "fieldPath": "/attributes/@tsk04",
+            "rank": "zs",
+            "hidden": false
+          },
+          "/attributes/@tsk05": {
+            "id": "/attributes/@tsk05",
+            "fieldPath": "/attributes/@tsk05",
+            "rank": "zw",
+            "hidden": false
+          },
+          "/attributes/@tsk06": {
+            "id": "/attributes/@tsk06",
+            "fieldPath": "/attributes/@tsk06",
+            "rank": "zy",
+            "hidden": false
+          },
+          "/attributes/@tsk07": {
+            "id": "/attributes/@tsk07",
+            "fieldPath": "/attributes/@tsk07",
+            "rank": "zz",
+            "hidden": false
+          }
+        }
+      }
+    },
+    "fields": {
+      "@tsk01": {
+        "type": "string",
+        "displayName": "Source Message ID"
+      },
+      "@tsk02": {
+        "type": "string",
+        "displayName": "Client Name"
+      },
+      "@tsk03": {
+        "type": "Select",
+        "displayName": "Task Type",
+        "options": {
+          "follow-up": {
+            "id": "follow-up",
+            "name": "Follow-up",
+            "color": "#f59e0b",
+            "rank": "0"
+          },
+          "research": {
+            "id": "research",
+            "name": "Research",
+            "color": "#3b82f6",
+            "rank": "1"
+          },
+          "proposal": {
+            "id": "proposal",
+            "name": "Proposal",
+            "color": "#8b5cf6",
+            "rank": "2"
+          },
+          "meeting": {
+            "id": "meeting",
+            "name": "Meeting",
+            "color": "#10b981",
+            "rank": "3"
+          },
+          "support": {
+            "id": "support",
+            "name": "Support",
+            "color": "#ef4444",
+            "rank": "4"
+          },
+          "documentation": {
+            "id": "documentation",
+            "name": "Documentation",
+            "color": "#6b7280",
+            "rank": "5"
+          }
+        }
+      },
+      "@tsk04": {
+        "type": "Select",
+        "displayName": "Priority",
+        "options": {
+          "high": {
+            "id": "high",
+            "name": "High",
+            "color": "#dc2626",
+            "rank": "0"
+          },
+          "medium": {
+            "id": "medium",
+            "name": "Medium",
+            "color": "#ea580c",
+            "rank": "1"
+          },
+          "low": {
+            "id": "low",
+            "name": "Low",
+            "color": "#16a34a",
+            "rank": "2"
+          }
+        }
+      },
+      "@tsk05": {
+        "type": "DateTime",
+        "title": "Due Date"
+      },
+      "@tsk06": {
+        "type": "string",
+        "displayName": "Estimated Time"
+      },
+      "@tsk07": {
+        "type": "string",
+        "displayName": "Value-Add Notes"
+      }
+    }
+  },
+  "preferences": {
+    "defaultView": "table"
+  }
+}

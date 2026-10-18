@@ -1,0 +1,93 @@
+{
+  "version": "2",
+  "flowTitle": "WhatsApp API Webhook Handler",
+  "trigger": {
+    "valid": true,
+    "type": "WEBHOOK",
+    "settings": {
+      "input": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string",
+            "description": "Input for body"
+          },
+          "from": {
+            "type": "string",
+            "description": "Input for from"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Input for timestamp"
+          },
+          "senderName": {
+            "type": "string",
+            "description": "Input for senderName"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440020",
+      "valid": true,
+      "displayName": "Auto-Categorize with AI",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.categorize",
+        "input": {
+          "input": "{{ trigger[\"body\"] }}",
+          "output": "{\"category\": [\"Urgent\", \"Follow-up\", \"Inquiry\", \"Support\", \"Sales\", \"General\"], \"priority\": [\"High\", \"Medium\", \"Low\"], \"businessValue\": \"string\"}"
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440026",
+      "valid": true,
+      "displayName": "Generate Professional Tasks",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.generate",
+        "input": {
+          "input": "Auto-received from {{ trigger[\"from\"] }}: {{ trigger[\"body\"] }}",
+          "prompt": "Analyze this WhatsApp business message and create professional task recommendations with business value insights. Format as actionable items."
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "http_response",
+      "body": {
+        "type": "json",
+        "data": {
+          "type": "basic",
+          "payload": [
+            {
+              "status": "processed"
+            },
+            {
+              "category": "{{ 550e8400-e29b-41d4-a716-446655440020[\"category\"] }}"
+            },
+            {
+              "priority": "{{ 550e8400-e29b-41d4-a716-446655440020[\"priority\"] }}"
+            },
+            {
+              "suggestedTasks": "{{ 550e8400-e29b-41d4-a716-446655440026[\"result\"] }}"
+            },
+            {
+              "autoProcessed": "true"
+            }
+          ]
+        }
+      },
+      "key": "trigger"
+    }
+  ]
+}
